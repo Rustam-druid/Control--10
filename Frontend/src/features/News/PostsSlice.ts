@@ -1,7 +1,8 @@
 import {IComments, INews} from "../../types";
 import {createSlice} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store.ts";
-import {createNews, DeleteNews, fetchAllNews, fetchNewById} from "./productsThunks.ts";
+import {createNews, DeleteNews, fetchAllNews, fetchNewById} from "./postsThunks.ts";
+
 
 interface ProductsState {
     items: INews[];

@@ -1,6 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axiosAPI from "../../axiosApi.ts";
-import {INews, INewsMutation} from "../../types";
+import {AddCommentArgs, ICommentsMutation, INews, INewsMutation} from "../../types";
 
 
 export const fetchAllNews = createAsyncThunk<INews[], void>(
@@ -8,6 +8,13 @@ export const fetchAllNews = createAsyncThunk<INews[], void>(
     async () => {
         const response = await axiosAPI.get<INews[]>('/newsBook');
         return response.data;
+    }
+);
+export const addNewComment = createAsyncThunk<void, AddCommentArgs>(
+    'news/addNewComment',
+    async (arg) => {
+        const { idNews, comment } = arg;
+        await axiosAPI.post<ICommentsMutation>(`/newsBook/${idNews}/comments`, comment);
     }
 );
 

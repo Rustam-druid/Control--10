@@ -22,3 +22,7 @@ export interface ICommentsMutation {
     author: string;
     titleComments: string;
 }
+export interface AddCommentArgs {
+    idNews: string;
+    comment: ICommentsMutation;
+}

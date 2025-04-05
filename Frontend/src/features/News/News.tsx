@@ -1,12 +1,14 @@
 import {useEffect} from "react";
 import Grid from "@mui/material/Grid2";
-import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
-import {selectLoading, selectNews} from "./productsSlice.ts";
-import {DeleteNews, fetchAllNews} from "./productsThunks.ts";
+
+
+import {DeleteNews, fetchAllNews} from "./postsThunks.ts";
 import {Button, Card, CardMedia, Container, Typography} from "@mui/material";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 import noPosts from "../../assets/images/noPosts.jpg"
 import {Link} from "react-router-dom";
+import {selectLoading, selectNews} from "./PostsSlice.ts";
+import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
 
 
 const News = () => {

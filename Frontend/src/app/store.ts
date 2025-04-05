@@ -1,5 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {newsReducer} from "../features/News/productsSlice.ts";
+import {newsReducer} from "../features/News/PostsSlice.ts";
+
 
 
 
