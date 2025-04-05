@@ -82,3 +82,4 @@ export const selectNews = (state: RootState) => state.posts.items;
 export const selectOneNews = (state: RootState) => state.posts.onePost;
 export const selectComments = (state: RootState) => state.posts.comments;
 export const selectLoading = (state: RootState) => state.posts.fetchLoading;
+export const selectAddLoading = (state: RootState) => state.posts.createLoading;

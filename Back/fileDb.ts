@@ -25,10 +25,13 @@ const fileDb = {
         return data.map(item => ({
             title: item.title,
             id: item.id,
-            datetime: item.datetime
+            datetime: item.datetime,
+
         }));
+
     }, async getAllComments() {
         await fileDb.init();
+
         return data.map(item => ({
             comments: item.comments
         }));

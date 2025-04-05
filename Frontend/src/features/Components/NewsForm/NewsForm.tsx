@@ -18,8 +18,13 @@ const NewsForm:React.FC<IProps> = ({onSubmitForm}) => {
 
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmitForm({...form})
-        setForm(initialState)
+        if (!form.title || !form.description) {
+            alert("Please enter title or description");
+        }else{
+            onSubmitForm({...form})
+            setForm(initialState)
+        }
+
     };
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

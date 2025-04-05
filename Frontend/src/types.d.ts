@@ -16,6 +16,7 @@ export interface IComments {
     id: string;
     author: string;
     titleComments: string;
+    idNews:string
 }
 
 export interface ICommentsMutation {
