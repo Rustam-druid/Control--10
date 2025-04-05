@@ -1,12 +1,24 @@
-export interface IMessage {
+export interface INews {
+    id: string;
+    title: string;
+    description: string;
+    datetime: string;
+    comments: IComments[]
+}
+
+export interface INewsMutation{
+    title: string;
+    description: string;
+
+}
+
+export interface IComments {
     id: string;
     author: string;
-    message: string;
-    datetime: string;
+    titleComments: string;
 }
 
-export interface IMessageMutation {
+export interface ICommentsMutation {
     author: string;
-    message: string;
+    titleComments: string;
 }
-

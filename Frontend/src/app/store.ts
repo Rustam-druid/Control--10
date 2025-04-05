@@ -1,11 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {messageReducer} from "../features/Chat/messageSlice.ts";
+import {newsReducer} from "../features/News/productsSlice.ts";
 
 
 
 export const store = configureStore({
     reducer: {
-        chat: messageReducer
+        posts: newsReducer
     }
 });
 

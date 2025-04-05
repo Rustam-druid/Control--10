@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 
-app.use('/newBook', newsRouter);
+app.use('/newsBook', newsRouter);
 
 const run = async () => {
     if (fs.existsSync('./db.json')) {
