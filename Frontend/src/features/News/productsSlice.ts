@@ -1,7 +1,7 @@
 import {IComments, INews} from "../../types";
 import {createSlice} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store.ts";
-import {fetchAllNews} from "./productsThunks.ts";
+import {createNews, fetchAllNews, fetchNewById} from "./productsThunks.ts";
 
 interface ProductsState {
     items: INews[];
@@ -33,8 +33,29 @@ export const newsSlice = createSlice({
                 state.fetchLoading = false;
             })
             .addCase(fetchAllNews.rejected, (state) => {
-            state.fetchLoading = false;
-        })
+                state.fetchLoading = false;
+            })
+
+            .addCase(fetchNewById.pending, (state) => {
+                state.fetchLoading = true;
+            })
+            .addCase(fetchNewById.fulfilled, (state, {payload: post}) => {
+                state.onePost = post;
+                state.fetchLoading = false;
+            })
+            .addCase(fetchNewById.rejected, (state) => {
+                state.fetchLoading = false;
+            })
+
+            .addCase(createNews.pending, (state) => {
+                state.fetchLoading = true;
+            })
+            .addCase(createNews.fulfilled, (state) => {
+                state.fetchLoading = false;
+            })
+            .addCase(createNews.rejected, (state) => {
+                state.fetchLoading = false;
+            })
 
 
     }

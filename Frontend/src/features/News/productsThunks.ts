@@ -23,7 +23,6 @@ export const fetchNewById = createAsyncThunk<INews, string>(
 export const createNews = createAsyncThunk<void, INewsMutation>(
     'news/createNews',
     async (newPost) => {
-
         await axiosAPI.post('/newsBook', newPost);
     }
 );

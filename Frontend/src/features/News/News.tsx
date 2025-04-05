@@ -39,7 +39,7 @@ const News = () => {
                         </Grid>
 
                         <Grid>
-                            <Button>
+                            <Button  olor="primary" component={Link} to={'/newsBook/new' }>
                                 Add new Posts
                             </Button>
                         </Grid>
@@ -80,7 +80,7 @@ const News = () => {
 
                                                             <Grid>
                                                                 <Typography color="primary" component={Link}
-                                                                            to={'/news/' + item.id}>Read Full
+                                                                            to={'/newsBook/' + item.id}>Read Full
                                                                     Post</Typography>
 
                                                             </Grid>

@@ -3,6 +3,8 @@ import AppToolbar from "./components/UI/AppToolbar/AppToolbar.tsx";
 import {Route, Routes} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import News from "./features/News/News.tsx";
+import PostsFullViuw from "./features/News/PostsFullViuw/PostsFullViuw.tsx";
+import NewsPosts from "./features/Components/NewsPosts/NewsPosts.tsx";
 
 const App = () => {
 
@@ -19,7 +21,8 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<News/>}/>
                     <Route path="/news" element={<News/>}/>
-                    <Route path="/news" element={<News/>}/>
+                    <Route path="/newsBook/:id" element={<PostsFullViuw/>}/>
+                    <Route path="/newsBook/new" element={<NewsPosts/>}/>
                     <Route path="*" element={<Typography variant="h4">Not found page</Typography>}/>
                 </Routes>
             </Container>
