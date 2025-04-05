@@ -4,7 +4,7 @@ import fileDb from "./fileDb";
 import cors from "cors";
 
 import fs = require("fs");
-import messageRouter from "./routers/messages";
+import newsRouter from "./routers/news";
 
 
 const app = express();
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 
-app.use('/messages', messageRouter);
+app.use('/newBook', newsRouter);
 
 const run = async () => {
     if (fs.existsSync('./db.json')) {

@@ -1,47 +1,97 @@
 import {promises as fs} from 'fs';
-
 import {existsSync} from "node:fs";
-import {IMessage, IMessageWithoutIdAndDateTime} from "./types";
+import { ICommentsWithoutId, INews, INewsWithoutIdAndDatetime} from "./types";
+import * as crypto from "node:crypto";
 
-
-const fileName = './db.json';
-let data: IMessage[] = [];
+const filename = './db.json';
+let data: INews[] = [];
 
 const fileDb = {
     async init() {
         try {
-            if (!existsSync(fileName)) {
-
+            if (!existsSync(filename)) {
+                await fs.writeFile(filename, JSON.stringify([]));
+            } else {
+                const fileContent = await fs.readFile(filename);
+                data = JSON.parse(fileContent.toString()) as INews[];
             }
-            const fileContent = await fs.readFile(fileName);
-            data = await JSON.parse(fileContent.toString()) as IMessage[];
         } catch (e) {
+            data = [];
             console.error(e);
         }
     },
-    getMessages() {
-        return data.slice(-30)
+    async getAllNews() {
+        await fileDb.init();
+        return data.map(item => ({
+            title: item.title,
+            id: item.id,
+            datetime: item.datetime
+        }));
+    }, async getAllComments() {
+        await fileDb.init();
+        return data.map(item => ({
+            comments: item.comments
+        }));
     },
-    getMessagesByDateTime(date: string) {
-        let lastMessages: IMessage[] = [];
+    async geNewsById(param_id: string) {
+        return data.find(p => p.id === param_id);
+    },
+    async getCommentsByNewsId(newsId: string) {
+        const newsItem = data.find(item => item.id === newsId);
 
-        data.forEach(m => {
-            if (m.datetime > date) lastMessages.push(m);
-        })
-        return lastMessages
+        if (!newsItem) {
+            throw new Error('News item not found');
+        }
+
+        return newsItem.comments || [];
     },
-    async addMessage(message: IMessageWithoutIdAndDateTime) {
-        const newMessage = {
-            ...message,
+    async geNewsDeleteById(param_id: string) {
+        data = data.filter(p => p.id !== param_id);
+        await this.save();
+        return data;
+    },
+    async deleteCommentById(newsId: string, commentId: string) {
+        const newsItem = data.find(item => item.id === newsId);
+
+        if (!newsItem) {
+            throw new Error('News item not found');
+        }else{
+            newsItem.comments = newsItem.comments.filter(comment => comment.id !== commentId);
+        }
+
+        await this.save();
+        return newsItem.comments;
+    },
+    async addNewEntryNews(newEntry: INewsWithoutIdAndDatetime) {
+        const newNews = {
+            ...newEntry,
             id: crypto.randomUUID(),
             datetime: (new Date()).toISOString(),
-        } as IMessage;
-        data.push(newMessage);
-        await this.save()
-        return newMessage;
+            comments:[]
+
+        };
+        data.push(newNews);
+        await this.save();
+        return newNews;
+    },
+    async addNewComments(newsId: string, comments: ICommentsWithoutId) {
+        const newsItem = data.find(item => item.id === newsId);
+
+        const newComments = {
+            ...comments,
+            id: crypto.randomUUID(),
+            idNews:newsId
+
+        };
+        if (newsItem){
+            newsItem.comments.push(newComments);
+        }
+
+        await this.save();
+        return newComments;
     },
     async save() {
-        return fs.writeFile(fileName, JSON.stringify(data));
+        return fs.writeFile(filename, JSON.stringify(data));
     }
 };
 
