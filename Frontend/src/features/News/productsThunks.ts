@@ -30,6 +30,7 @@ export const DeleteNews = createAsyncThunk<void, string>(
     'news/DeleteNews',
     async (idNews) => {
 
-        await axiosAPI.delete(`/newsBook/${idNews}`);
+        const response =   await axiosAPI.delete(`/newsBook/${idNews}`);
+        return response.data.id;
     }
 );

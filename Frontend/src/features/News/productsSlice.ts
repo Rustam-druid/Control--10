@@ -1,7 +1,7 @@
 import {IComments, INews} from "../../types";
 import {createSlice} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store.ts";
-import {createNews, fetchAllNews, fetchNewById} from "./productsThunks.ts";
+import {createNews, DeleteNews, fetchAllNews, fetchNewById} from "./productsThunks.ts";
 
 interface ProductsState {
     items: INews[];
@@ -9,6 +9,8 @@ interface ProductsState {
     comments: IComments[]
     fetchLoading: boolean;
     createLoading: boolean;
+    delete:boolean;
+    deleteLoading:boolean
 }
 
 const initialState: ProductsState = {
@@ -17,6 +19,8 @@ const initialState: ProductsState = {
     comments: [],
     fetchLoading: false,
     createLoading: false,
+    delete:false,
+    deleteLoading:false,
 };
 
 export const newsSlice = createSlice({
@@ -48,13 +52,23 @@ export const newsSlice = createSlice({
             })
 
             .addCase(createNews.pending, (state) => {
-                state.fetchLoading = true;
+                state.createLoading = true;
             })
             .addCase(createNews.fulfilled, (state) => {
-                state.fetchLoading = false;
+                state.createLoading = false;
             })
             .addCase(createNews.rejected, (state) => {
-                state.fetchLoading = false;
+                state.createLoading = false;
+            })
+
+            .addCase(DeleteNews.pending, (state) => {
+                state.deleteLoading = true;
+            })
+            .addCase(DeleteNews.fulfilled, (state) => {
+                state.deleteLoading = false;
+            })
+            .addCase(DeleteNews.rejected, (state) => {
+                state.deleteLoading = false;
             })
 
 

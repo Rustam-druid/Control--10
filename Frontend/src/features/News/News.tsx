@@ -39,7 +39,7 @@ const News = () => {
                         </Grid>
 
                         <Grid>
-                            <Button  olor="primary" component={Link} to={'/newsBook/new' }>
+                            <Button  color="primary" component={Link} to={'/newsBook/new' }>
                                 Add new Posts
                             </Button>
                         </Grid>
@@ -52,7 +52,7 @@ const News = () => {
                                 {posts.length === 0 ? <Typography variant='h4'>No posts yet</Typography> :
                                     <>
                                         {posts.map(item => (
-                                            <Card key={item.id} style={{width: '100%'}}>
+                                            <Card key={item.id} style={{width: '100%', marginTop:'30px'}} >
                                                 <Grid container style={{display: 'flex',}}
                                                       size={{xs: 12, sm: 12, md: 6, lg: 12}}>
 
@@ -86,7 +86,7 @@ const News = () => {
                                                             </Grid>
 
                                                             <Grid>
-                                                                <Button>Delete</Button>
+                                                                    <Button onClick={() => onDelete(item.id)}>Delete</Button>
                                                             </Grid>
                                                         </Grid>
 
